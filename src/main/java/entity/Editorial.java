@@ -19,6 +19,5 @@ public class Editorial {
 	private Date fechaActualizacion;
 	private int estado;
 	private Pais pais;
-	private String fechaFormateada;
 
 }
