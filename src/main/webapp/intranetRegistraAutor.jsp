@@ -16,11 +16,165 @@
 <title>Sistemas - Jorge Jacinto Gutarra</title>
 </head>
 <body>
+
 <jsp:include page="intranetCabecera.jsp" />
-	<div class="container" style="margin-top: 4%">
-	<h4>Registra Autor</h4>
-	
-	
-	</div>
+<div class="container" style="margin-top: 4%">
+    <h4>Registra Autor</h4>
+
+    <div class="container">
+        <form action=" "  id="id_form">
+            <div class="row" style="margin-top: 5%">
+                <!-- Primera columna -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="id_nombres" class="control-label">Nombres</label> <input
+                            class="form-control" type="text" id="id_nombres" name="nombres"
+                            placeholder="Ingrese el Nombre" maxlength="30">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="id_telefono" class="control-label">Tel&eacute;fono</label> <input
+                            class="form-control" type="text" id="id_telefono" name="telefono"
+                            placeholder="Ingrese el tel&eacute;fono" maxlength="9">
+                    </div>
+                    <div class="form-group">
+                        <label for="id_grado" class="control-label">Grado</label>
+                        <select class="form-control" id="id_grado" name="grado">
+                            <option value="">[Seleccione]</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Segunda columna -->
+                <div class="col-sm-6">
+                 <div class="form-group">
+                        <label for="id_apellidos" class="control-label">Apellidos</label> <input
+                            class="form-control" type="text" id="id_apellidos" name="apellidos"
+                            placeholder="Ingrese los apellidos" maxlength="30">
+                    </div>
+                   
+                    <div class="form-group">
+                        <label for="id_fechaNacimiento" class="control-label">Fecha
+                            Nacimiento</label> <input class="form-control" type="date"
+                                                      id="id_fechaNacimiento" name="fechaNacimiento">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 2%" align="center">
+                <button id="id_btn_registrar" type="button" class="btn btn-primary">Crear Autor</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document)
+        .ready(
+            function() {
+                $('#id_form')
+                    .bootstrapValidator(
+                        {
+                            message : 'This value is not valid',
+                            feedbackIcons : {
+                                valid : 'glyphicon glyphicon-ok',
+                                invalid : 'glyphicon glyphicon-remove',
+                                validating : 'glyphicon glyphicon-refresh'
+                            },
+                            fields: {
+                                nombres: {
+                                    validators: {
+                                        notEmpty: {
+                                            message: 'Los Nombres son requeridos'
+                                        },
+                                    }
+                                },
+                                apellidos: {
+                                    validators: {
+                                        notEmpty: {
+                                            message: 'Los Apellidos son requeridos'
+                                        },
+                                    }
+                                },
+                                telefono:{
+                                    selector: "#id_telefono",
+                                    validators:{
+                                        notEmpty: {
+                                            message: 'El tel&eacute;fono es obligatorio'
+                                        },
+                                        regexp: {
+                                            regexp: /^9[0-9]{8}$/,
+                                            message: 'El tel&eacute;fono es de 9 d&iacute;gitos y empieza con 9'
+                                        }
+                                    }
+                                },
+                                correo: {
+                                    validators: {
+                                        notEmpty: {
+                                            message: 'Debe ingresar un correo v&aacute;lido'
+                                        },
+                                        emailAddress: {
+                                			message: 'Debe tener formato de correo'
+                               			 },
+                                    }
+                                },
+                                fechaNacimiento: {
+                                    selector : "#id_fechaNacimiento",
+                                    validators : {
+                                        notEmpty : {
+                                            message : 'La fecha de nacimiento es requerida'
+                                        },
+                                    }
+                                },
+                                grado: {
+                                    validators: {
+                                        notEmpty: {
+                                            message: 'Debe seleccionar un pa&iacute;s'
+                                        }
+                                    }
+                                }
+                            }
+                        });
+            });
+
+    $("#id_btn_registrar").click(function() {
+        var validator = $('#id_form').data('bootstrapValidator');
+        validator.validate();
+
+        if (validator.isValid()) {
+            $.ajax({
+                type: "POST",
+                url: "registraAutor",
+                data: $('#id_form').serialize(),
+                success: function(data){
+                    mostrarMensaje(data.mensaje);
+                    limpiarFormulario();
+                    validator.resetForm();
+                },
+                error: function(){
+                    mostrarMensaje(MSG_ERROR);
+                }
+            });
+        }
+    });
+
+    $.getJSON("cargaGrado", {}, function(data) {
+        $.each(data, function(index, item) {
+            $("#id_grado").append("<option value=" +  item.idGrado +" >" + item.descripcion + "</option>");
+        });
+    });
+
+    
+   function limpiarFormulario() {
+        $('#id_nombres').val('');
+        $('#id_apellidos').val('');
+        $('#id_telefono').val('');
+        $('#id_dni').val('');
+        $('#id_correo').val('');
+        $('#id_fechaNacimiento').val('');
+        $('#id_pais').val('');
+    }
+</script>
 </body>
 </html>
