@@ -3,9 +3,7 @@ package controlador;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
-
 import com.google.gson.Gson;
-
 import entity.Autor;
 import entity.Grado;
 import entity.Respuesta;

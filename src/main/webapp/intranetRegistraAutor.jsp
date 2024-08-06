@@ -165,6 +165,7 @@
         });
     });
 
+    
    function limpiarFormulario() {
         $('#id_nombres').val('');
         $('#id_apellidos').val('');
