@@ -44,8 +44,10 @@
 		
 		<div class="row" style="margin-top:2%">
 			<div class="form-group col-md-12">
-				<label class="control-label" for="id_idAlumno">Id Alumno</label>
-				<input class="form-control" type="text" id="id_idAlumno" name="idAlumno" placeholder="Ingrese el ID">	
+				 <label for="id_alumno" class="control-label">Alumno</label>
+                        <select class="form-control" id="id_alumno" name="alumno">
+                            <option value="">[Seleccione]</option>
+                        </select>
 		
 			</div>
 		</div>
@@ -62,7 +64,12 @@
 	
 	</div>
 	<script type="text/javascript">
-
+	  $.getJSON("cargaAlumno", {}, function(data) {
+	        $.each(data, function(index, item) {
+	            $("#id_alumno").append("<option value=" +  item.idAlumno +" >" + item.nombres + item.apellidos + "</option>");
+	        });
+	    });
+	  
 $(document)
 .ready(function(){
 	$('#id_form').bootstrapValidator(

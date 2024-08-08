@@ -190,5 +190,46 @@ public class ModelAlumno {
 		return lstSalida;
 
 	}
+	
+	public List<Alumno> listaAlumno(){
+		List<Alumno> salida = new ArrayList<Alumno>();
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		try {
+			conn = MySqlDBConexion.getConexion();
+
+			String sql = "select * from alumno";
+			psmt = conn.prepareStatement(sql);
+
+			System.out.println("SQL => " +psmt);
+			
+			rs = psmt.executeQuery();
+			
+			Alumno obj = null;
+			while (rs.next()) {
+				obj = new Alumno();
+				obj.setIdAlumno(rs.getInt(1));
+				obj.setNombres(rs.getString(2));
+				obj.setApellidos(rs.getString(3));
+				obj.setTelefono(rs.getString(4));
+				obj.setDni(rs.getString(5));
+				obj.setCorreo(rs.getString(6));
+				obj.setFechaNacimiento(rs.getDate(7));
+				salida.add(obj);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (psmt != null)psmt.close();
+				if (conn != null)conn.close();
+			} catch (Exception e2) {
+				}
+		}
+		return salida;
+		
+	}
+
 
 }
