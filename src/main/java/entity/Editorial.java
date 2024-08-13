@@ -19,5 +19,8 @@ public class Editorial {
 	private Date fechaActualizacion;
 	private int estado;
 	private Pais pais;
+	
+	//Atributo para la fecha con un formato "yyyy-MM-dd
+	private String fechaCreacionFormateada;
 
 }
