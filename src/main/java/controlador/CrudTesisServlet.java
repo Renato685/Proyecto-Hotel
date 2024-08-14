@@ -128,7 +128,7 @@ public class CrudTesisServlet extends HttpServlet {
 		System.out.println("[ini] eliminacionLogica  ");
 		
 		String idTesis = req.getParameter("idTesis");
-		
+		 
 		ModelTesis modelTesis = new ModelTesis();
 		
 		Tesis objTesis = modelTesis.listarTesisPorPk(Integer.parseInt(idTesis));
