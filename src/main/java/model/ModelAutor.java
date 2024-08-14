@@ -153,9 +153,8 @@ public class ModelAutor {
         conn = MySqlDBConexion.getConexion();
         String sql = "select a.*, p.descripcion from autor a inner join grado_autor p on a.idGrado = p.idGrado where a.nombres like ? or a.apellidos like ?";
         pstm = conn.prepareStatement(sql);
-        pstm.setString(1, "%" + filtro + "%");
-        pstm.setString(2, "%" + filtro + "%");
-
+		pstm.setString(1, filtro);
+		pstm.setString(2, filtro);
         System.out.println("SQL => " + pstm);
         rs = pstm.executeQuery();
         
@@ -237,6 +236,7 @@ public class ModelAutor {
 			rs = pstm.executeQuery();
 			Grado objGrado;
 			if(rs.next()) {
+				objAutor=new Autor();
 				objAutor.setIdAutor(rs.getInt(1));
 				objAutor.setNombres(rs.getString(2));
 				objAutor.setApellidos(rs.getString(3));
@@ -273,7 +273,7 @@ public class ModelAutor {
 		int salida = -1;
 		try {
 			conn = MySqlDBConexion.getConexion();
-			String sql = "update autor set nombres = ?, apellidos = ?, fechaNacimiento = ?, telefono = ?"
+			String sql = "update autor set nombres = ?, apellidos = ?, fechaNacimiento = ?, telefono = ?,"
 									 + "  fechaActualizacion = ?, estado = ?, idGrado = ? "
 									 + " where idAutor=?";
 			pstm = conn.prepareStatement(sql);
