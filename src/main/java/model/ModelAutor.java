@@ -9,6 +9,7 @@ import java.util.List;
 import entity.Autor;
 import entity.Grado;
 import lombok.extern.apachecommons.CommonsLog;
+import util.FechaUtil;
 import util.MySqlDBConexion;
 
 
@@ -168,6 +169,7 @@ public class ModelAutor {
             objAutor.setTelefono(rs.getString("telefono"));
             objAutor.setFechaRegistro(rs.getDate("fechaRegistro"));
             objAutor.setEstado(rs.getInt("estado"));
+			objAutor.setFechaNacimientoFormateada(FechaUtil.getFechaFormateadaYYYYMMdd(rs.getDate(("fechaNacimiento"))));
 
             Grado objGrado = new Grado();
             objGrado.setIdGrado(rs.getInt("idGrado"));
@@ -245,7 +247,8 @@ public class ModelAutor {
 				objAutor.setTelefono(rs.getString(6));
 				objAutor.setFechaRegistro(rs.getDate(7));
 				objAutor.setEstado(rs.getInt(8));
-				
+				objAutor.setFechaNacimientoFormateada(FechaUtil.getFechaFormateadaYYYYMMdd(rs.getDate(4)));
+
 				objGrado = new Grado();
 				objGrado.setIdGrado(rs.getInt(9));
 				objGrado.setDescripcion(rs.getString(10));

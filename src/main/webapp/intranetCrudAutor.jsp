@@ -239,7 +239,7 @@
 						{data: "idAutor",className:'text-center'},
 						{data: "nombres",className:'text-center'},
 						{data: "apellidos",className:'text-center'},
-						{data: "fechaNacimiento", className:'text-center'},
+						{data: "fechaNacimientoFormateada", className:'text-center'},
 						{data: "telefono", className:'text-center'},
 						{data: function(row, type, val, meta){
 							return row.estado == 1 ? "Activo" : "Inactivo";  
