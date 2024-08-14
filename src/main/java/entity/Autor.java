@@ -18,5 +18,5 @@ public class Autor {
 	private Date fechaRegistro;
 	private int estado;
 	private Grado grado;
-
+	private String fechaNacimientoFormateada;
 }
