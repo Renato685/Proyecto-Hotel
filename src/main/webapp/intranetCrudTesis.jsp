@@ -290,7 +290,7 @@
 		          }
 		    });
 		}
-		 
+		
 		function eliminacionLogica(idTesis){
 			 $.ajax({
 		          type: "POST",

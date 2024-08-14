@@ -167,7 +167,7 @@ public class ModelTesis {
 	    }
 	    return lstSalida;
 	}
-	 
+	
 	public Tesis listarTesisPorPk(int idTesis) {
 	    Connection conn = null;
 	    PreparedStatement pstm = null;
