@@ -124,7 +124,7 @@ public class ModelEditorial {
 		try {
 
 			conn = MySqlDBConexion.getConexion();
-			String sql = "select e.*, p.nombre from editorial e inner join pais p on e.idEditorial = p.idPais where e.razonSocial like ? or e.direccion like ?";
+			String sql = "select e.*, p.nombre from editorial e inner join pais p on e.idPais = p.idPais where e.razonSocial like ? or e.direccion like ?";
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, filtro);
 			pstm.setString(2, filtro);
@@ -177,7 +177,7 @@ public class ModelEditorial {
 		try {
 
 			conn = MySqlDBConexion.getConexion();
-			String sql = "select e.*, p.nombre from editorial e inner join pais p on e.idEditorial = p.idPais where e.idEditorial = ?";
+			String sql = "select e.*, p.nombre from editorial e inner join pais p on e.idPais = p.idPais where e.idEditorial = ?";
 			pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, idEditorial);
 
