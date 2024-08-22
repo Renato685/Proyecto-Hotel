@@ -204,6 +204,14 @@ public class ModelLibro {
 				objCategoria.setIdCategoria(rs.getInt(9));
 				objCategoria.setDescripcion(rs.getString(10));
 				objLibro.setCategoria(objCategoria);
+				
+				
+				
+				
+				
+
+				System.out.println("SQL => " + pstm);
+				rs = pstm.executeQuery();
 			}
 
 		} catch (Exception e) {
@@ -221,5 +229,150 @@ public class ModelLibro {
 		}
 		return objLibro;
 	}
+	
+	
+	public List<Libro> listaLibroComplejo(String titulo,int anio,String serie,String tema) {
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		ArrayList<Libro> lstSalida = new ArrayList<Libro>();
+		try {
+
+			conn = MySqlDBConexion.getConexion();
+			String sql = "select l.*, c.descripcion  from libro l inner join categoria_libro c on l.idCategoria = c.idCategoria "
+		            + "where (? = '' or l.titulo like ? ) and "
+		            + "( ? = -1 or l.anio = ?) and "
+		            + "( ? = '' or l.serie = ?) and "
+		            + "( ? = '' or l.tema = ?)";
+
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, titulo);
+			pstm.setString(2, titulo);
+			pstm.setInt(3, anio);
+			pstm.setInt(4, anio);
+			pstm.setString(5, serie);
+			pstm.setString(6, serie);
+			pstm.setString(7, tema);
+			pstm.setString(8, tema);
+
+
+
+			
+
+			System.out.println("SQL => " + pstm);
+			rs = pstm.executeQuery();
+			Libro objLibro;
+			Categoria objCategoria;
+			while(rs.next()) {
+				objLibro = new Libro();
+				objLibro.setIdLibro(rs.getInt(1));
+				objLibro.setTitulo(rs.getString(2));
+				objLibro.setAnio(rs.getInt(3));
+				objLibro.setSerie(rs.getString(4));
+				objLibro.setTema(rs.getString(5));				
+				objLibro.setFechaRegistro(rs.getDate(6));
+				objLibro.setFechaActualizacion(rs.getDate(7));
+				objLibro.setEstado(rs.getInt(8));
+				
+				objCategoria = new Categoria();
+				objCategoria.setIdCategoria(rs.getInt(9));
+				objCategoria.setDescripcion(rs.getString(10));
+				objLibro.setCategoria(objCategoria);
+				lstSalida.add(objLibro);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstm != null)
+					pstm.close();
+				if (conn != null)
+					conn.close();
+
+			} catch (Exception e2) {}
+		}
+		return lstSalida;
+	}
+	
+	
+	public boolean existeLibroPorTitulo(String titulo) {
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		boolean existe = false;
+		try {
+
+			conn = MySqlDBConexion.getConexion();
+			String sql = " select titulo from libro where titulo =? ";
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, titulo);
+			
+
+			System.out.println("SQL => " + pstm);
+			rs = pstm.executeQuery();
+			if(rs.next()) {
+				
+				existe = true;
+				
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstm != null)
+					pstm.close();
+				if (conn != null)
+					conn.close();
+
+			} catch (Exception e2) {}
+		}
+		return existe;
+	}
+	
+	public boolean existeLibroPorSerie(String serie) {
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		boolean existe = false;
+		try {
+
+			conn = MySqlDBConexion.getConexion();
+			String sql = " select serie from libro where serie =? ";
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, serie);
+			
+
+			System.out.println("SQL => " + pstm);
+			rs = pstm.executeQuery();
+			if(rs.next()) {
+				
+				existe = true;
+				
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstm != null)
+					pstm.close();
+				if (conn != null)
+					conn.close();
+
+			} catch (Exception e2) {}
+		}
+		return existe;
+	}
+	
+	
+	
 
 }

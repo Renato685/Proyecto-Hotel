@@ -120,6 +120,65 @@ public class CrudLibroServlet extends HttpServlet {
 
 	protected void actualiza(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("[ini] actualiza");
+		
+		
+
+		//1 Recuperar datos de la GUI
+		
+				
+		
+				String id = req.getParameter("idLibro");
+				String tit = req.getParameter("titulo");
+				String ani = req.getParameter("anio");
+				String ser = req.getParameter("serie");
+				String tem = req.getParameter("tema");
+				String cat = req.getParameter("categoria");
+				String estado = req.getParameter("estado");
+
+				
+				
+				
+				//2 Llenar objLibro
+				
+						Libro objLibro = new Libro();
+						objLibro.setIdLibro(Integer.parseInt(id));
+						objLibro.setTitulo(tit);
+						objLibro.setAnio(Integer.parseInt(ani));
+						objLibro.setSerie(ser);
+						objLibro.setTema(tem);
+						objLibro.setFechaRegistro(new Date(System.currentTimeMillis()));
+						objLibro.setFechaActualizacion(new Date(System.currentTimeMillis()));
+						objLibro.setEstado(Integer.parseInt(estado));
+						
+						
+						
+						 Categoria  objCategoria = new Categoria();
+						 objCategoria.setIdCategoria(Integer.parseInt(cat));
+						 objLibro.setCategoria(objCategoria);
+						 
+						 //3 SE ENVIA objAlumno a registrar
+						 
+						 ModelLibro modelLibro = new ModelLibro();
+						 int salida = modelLibro.actualizarLibro(objLibro);
+						 
+						//4 Se envía el mensaje
+					        Respuesta objRespuesta = new Respuesta();
+					        
+					        if (salida>0) {
+								List<Libro>  lstDatos = modelLibro.listaLibroPorNombres("%");
+								objRespuesta.setDatos(lstDatos);
+								objRespuesta.setMensaje("Actualización existosa");
+							}
+
+					       
+
+					        Gson gson = new Gson();
+					        String json = gson.toJson(objRespuesta);
+
+					        resp.setContentType("application/json;charset=UTF-8");
+
+					        PrintWriter out = resp.getWriter();
+					        out.println(json);
 
 		System.out.println("[fin] actualiza");
 	}

@@ -156,6 +156,88 @@
 		<!-- FIN MODAL DE REGISTRO -->
 		
 	
+	
+	
+	
+		<!-- INICIO MODAL DE ACTUALIZAR -->
+<div class="modal fade" id="id_div_modal_actualiza">
+    <div class="modal-dialog" style="width: 60%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4><span class="glyphicon glyphicon-ok-sign"></span> Actualiza Libro</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-group" id="steps">
+                    <div class="panel panel-default">
+                        <div id="stepOne" class="panel-collapse collapse in">
+                            <form id="id_form_actualiza">
+                                <input type="hidden" name="metodo" value="paramActualiza">
+                                <input type="hidden" name="idLibro" id="idLibro">
+                                
+                                <div class="panel-body">
+                                    <!-- Título del libro -->
+                                    <div class="row" style="margin-top: 4%">
+                                        <div class="form-group col-md-6">
+                                            <label class="control-label" for="id_titulo_actualiza">Título del libro</label>
+                                            <input class="form-control" type="text" id="id_titulo_actualiza" name="titulo" placeholder="Ingrese el título del libro">
+                                        </div>
+                                        <!-- Año del libro -->
+                                        <div class="form-group col-md-6">
+                                            <label class="control-label" for="id_anio_actualiza">Año del libro</label>
+                                            <input class="form-control" type="text" id="id_anio_actualiza" name="anio" placeholder="Ingrese el año del libro">
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Serie del libro -->
+                                    <div class="row" style="margin-top: 2%">
+                                        <div class="form-group col-md-6">
+                                            <label class="control-label" for="id_serie_actualiza">Serie del libro</label>
+                                            <input class="form-control" type="text" id="id_serie_actualiza" name="serie" placeholder="Ingrese la serie del libro">
+                                        </div>
+                                        <!-- Tema del libro -->
+                                        <div class="form-group col-md-6">
+                                            <label class="control-label" for="id_tema_actualiza">Tema del libro</label>
+                                            <input class="form-control" type="text" id="id_tema_actualiza" name="tema" placeholder="Ingrese el tema del libro">
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Categoría y Estado -->
+                                    <div class="row" style="margin-top: 2%">
+                                        <!-- ID Categoría -->
+                                        <div class="form-group col-md-6">
+                                            <label class="control-label" for="id_categoria_actualiza">ID Categoría</label>
+                                            <select class="form-control" id="id_categoria_actualiza" name="categoria">
+                                                <option value="">[SELECCIONE]</option>
+                                            </select>
+                                        </div>
+                                        <!-- Estado -->
+                                        <div class="form-group col-md-4">
+                                            <label class="control-label" for="id_estado_actualiza">Estado</label>
+                                            <select class="form-control" id="id_estado_actualiza" name="estado">
+                                                <option value="">[SELECCIONE]</option>
+                                                <option value="1">Activo</option>
+                                                <option value="0">Inactivo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Botones -->
+                                    <div class="row" align="center" style="margin-top: 2%">
+                                        <button type="button" style="width: 80px" id="id_btn_actualiza" class="btn btn-primary btn-sm">Actualizar</button>
+                                        <button type="button" style="width: 80px" id="id_btn_act_cancelar" class="btn btn-primary btn-sm" data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FIN MODAL DE ACTUALIZAR -->
+
 	</div>
 	
 	
@@ -163,6 +245,8 @@
 	$.getJSON("cargaCategoria", {}, function (data){
 		$.each(data, function(index, item){
 			$("#id_categoria").append("<option value=" +  item.idCategoria +" >" +  item.descripcion + "</option>");
+			$("#id_categoria_actualiza").append("<option value=" +  item.idCategoria +" >" +  item.descripcion + "</option>");
+
 		});	
 	});		
 	
@@ -219,6 +303,7 @@
 	                                }
 	                            }
 	                        }
+	                        
 	                    }
 	                });
 	    });
@@ -331,6 +416,115 @@
 		          }
 		    });
 		}
+		
+		
+		
+		function verFormularioActualiza(idLibro,titulo,anio,serie,tema,estado,idCategoria ){
+			console.log(">> verFormularioActualiza >> " + idLibro);
+			$("#id_div_modal_actualiza").modal("show");
+			$("#idLibro").val(idLibro);
+			$("#id_titulo_actualiza").val(titulo);
+			$("#id_anio_actualiza").val(anio);
+			$("#id_serie_actualiza").val(serie);
+			$("#id_tema_actualiza").val(tema);
+			$("#id_estado_actualiza").val(estado);
+			$("#id_categoria_actualiza").val(idCategoria);
+			
+			
+
+		}
+		
+		$("#id_btn_actualiza").click(function() {
+			var validator = $('#id_form_actualiza').data('bootstrapValidator');
+		    validator.validate();
+		    
+
+			
+		    if (validator.isValid()) {
+		        $.ajax({
+			          type: "POST",
+			          url: "crudLibro", 
+			          data: $('#id_form_actualiza').serialize(),
+			          success: function(data){
+			        	  mostrarMensaje(data.mensaje);
+			        	  agregarGrilla(data.datos);
+			        	  validator.resetForm();
+			        	  $('#id_div_modal_actualiza').modal("hide");
+			          },
+			          error: function(){
+			        	  mostrarMensaje(MSG_ERROR);
+			          }
+			    });
+		    }
+		});
+		
+		$(document).ready(function() {
+		    $('#id_form_actualiza').bootstrapValidator({
+		        message: 'Este valor no es válido',
+		        feedbackIcons: {
+		            valid: 'glyphicon glyphicon-ok',
+		            invalid: 'glyphicon glyphicon-remove',
+		            validating: 'glyphicon glyphicon-refresh'
+		        },
+		        fields: {
+		            titulo: {
+		                selector: "#id_titulo_actualiza",
+		                validators: {
+		                    notEmpty: {
+		                        message: 'El título del libro es requerido'
+		                    }
+		                }
+		            },
+		            anio: {
+		                selector: "#id_anio_actualiza",
+		                validators: {
+		                    notEmpty: {
+		                        message: 'El año del libro es requerido'
+		                    }
+		                }
+		            },
+		            serie: {
+		                selector: "#id_serie_actualiza",
+		                validators: {
+		                    notEmpty: {
+		                        message: 'La serie del libro es requerida'
+		                    }
+		                }
+		            },
+		            tema: {
+		                selector: "#id_tema_actualiza",
+		                validators: {
+		                    notEmpty: {
+		                        message: 'El tema del libro es obligatorio'
+		                    }
+		                }
+		            },
+		            categoria: {
+		                selector: "#id_categoria_actualiza",
+		                validators: {
+		                    notEmpty: {
+		                        message: 'Debe seleccionar una categoría'
+		                    }
+		                }
+		            },
+		            estado: {
+		                selector: "#id_estado_actualiza",
+		                validators: {
+		                    notEmpty: {
+		                        message: 'Debe seleccionar un estado'
+		                    }
+		                }
+		            }
+		        }
+		    });
+		});
+
+		
+		
+		
+		
+		
+		
 		
 </script>
 </body>
