@@ -42,12 +42,12 @@
 				<thead style='background-color:#337ab7; color:white'>
 					<tr>
 						<th>ID libro</th>
-						<th>Titulo</th>
+						<th>Título</th>
 						<th>Año</th>
 						<th>Serie</th>
 						<th>Tema</th>
 						<th>Estado</th>
-						<th>Categoria</th>
+						<th>Categoría</th>
 						<th></th>
 						<th></th>
 						<th></th>
@@ -81,7 +81,7 @@
 			
 					<div class = "form-group col-md-6">
 					
-									<label class="control-label" for="id_titulo">Titulo del libro</label>
+									<label class="control-label" for="id_titulo">Título del libro</label>
 									<input class="form-control" type="text" id="id_titulo" name="titulo" placeholder="Ingrese el titulo del libro">	
 					</div>
 					
@@ -267,6 +267,11 @@
 	                                notEmpty: {
 	                                    message: 'El titulo del libro es requerido cumpita'
 	                                },
+	                                remote :{
+	                                	delay   : 1000,
+	                                	url     : 'ValidaRemoteRevistaLibroTituloServlet',
+	                                	message : 'El titulo ya existe'
+	                                }
 	                            }
 	                        },
 	                        anio: {
@@ -275,6 +280,7 @@
 	                                notEmpty: {
 	                                    message: 'El año del libro es requerido cumpita'
 	                                },
+	                                
 	                            }
 	                        },
 	                        serie: {
@@ -283,6 +289,11 @@
 	                                notEmpty: {
 	                                    message: 'La serie del libro es requerido cumpita'
 	                                },
+	                                remote :{
+	                                	delay   : 1000,
+	                                	url     : 'ValidaRemoteRevistaLibroSerieServlet',
+	                                	message : 'La serie ya existe'
+	                                }
 	                            }
 	                        },
 	                        tema:{

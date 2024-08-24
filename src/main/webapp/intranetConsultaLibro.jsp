@@ -24,15 +24,15 @@
 			
 					<div class = "form-group col-md-6">
 					
-									<label class="control-label" for="id_titulo">Titulo del libro</label>
-									<input class="form-control" type="text" id="id_titulo" name="titulo" placeholder="Ingrese el titulo del libro a buscar cumpita">	
+									<label class="control-label" for="id_titulo">Título del libro</label>
+									<input class="form-control" type="text" id="id_titulo" name="titulo" >	
 					</div>
 					
 					
 					<div class = "form-group col-md-6">
 					
 									<label class="control-label" for="id_anio">Año del libro</label>
-									<input class="form-control" type="text" id="id_anio" name="anio" placeholder="Ingrese el año del libro a buscar cumpita">	
+									<input class="form-control" type="text" id="id_anio" name="anio" >	
 					
 					</div>
 		</div>
@@ -42,14 +42,14 @@
 					<div class = "form-group col-md-6">
 					
 									<label class="control-label" for="id_serie">Serie del libro</label>
-									<input class="form-control" type="text" id="id_serie" name="serie" placeholder="Ingrese la serie del libro a buscar cumpita">	
+									<input class="form-control" type="text" id="id_serie" name="serie" >	
 					
 					</div>
 					
 					<div class = "form-group col-md-6">
 					
 									<label class="control-label" for="id_tema">Tema del libro</label>
-									<input class="form-control" type="text" id="id_tema" name="tema" placeholder="Ingrese tema del libro a buscar cumpita">	
+									<input class="form-control" type="text" id="id_tema" name="tema" >	
 					
 					</div>
 		</div>
@@ -68,12 +68,12 @@
 				<thead style='background-color:#337ab7; color:white'>
 					<tr>
 						<th>ID libro</th>
-						<th>Titulo</th>
+						<th>Título</th>
 						<th>Año</th>
 						<th>Serie</th>
 						<th>Tema</th>
 						<th>Estado</th>
-						<th>Categoria</th>
+						<th>Categoría</th>
 						
 						
 					</tr>
