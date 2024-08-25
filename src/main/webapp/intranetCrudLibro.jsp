@@ -82,7 +82,7 @@
 					<div class = "form-group col-md-6">
 					
 									<label class="control-label" for="id_titulo">Título del libro</label>
-									<input class="form-control" type="text" id="id_titulo" name="titulo" placeholder="Ingrese el titulo del libro">	
+									<input class="form-control" type="text" id="id_titulo" name="titulo" placeholder="Ingrese el título del libro">	
 					</div>
 					
 					
@@ -130,7 +130,7 @@
 					
 					<div class = "form-group col-md-6">
 					
-									<label class="control-label" for="id_categoria">ID Categoria</label>
+									<label class="control-label" for="id_categoria">ID Categoría</label>
 									<select class = "form-control" id= "id_categoria" name="categoria">
 											<option value = "">[SELECCIONE]</option>
 									</select>
