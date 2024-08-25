@@ -265,12 +265,12 @@
 	                        	selector: "#id_titulo",
 	                            validators: {
 	                                notEmpty: {
-	                                    message: 'El titulo del libro es requerido cumpita'
+	                                    message: 'El título del libro es requerido cumpita'
 	                                },
 	                                remote :{
 	                                	delay   : 1000,
 	                                	url     : 'ValidaRemoteRevistaLibroTituloServlet',
-	                                	message : 'El titulo ya existe'
+	                                	message : 'El título ya existe'
 	                                }
 	                            }
 	                        },
@@ -310,7 +310,7 @@
 	                        categoria: {
 	                            validators: {
 	                                notEmpty: {
-	                                    message: 'Debe seleccionar una categoria cumpita'
+	                                    message: 'Debe seleccionar una categoría cumpita'
 	                                }
 	                            }
 	                        }
