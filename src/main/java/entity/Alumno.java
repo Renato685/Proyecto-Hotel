@@ -8,7 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Alumno {
-
+	
+	//Atributos del alumno
 	private int idAlumno;
 	private String nombres;
 	private String apellidos;
@@ -20,5 +21,5 @@ public class Alumno {
 	private Date fechaActualizacion;
 	private int estado;
 	private Pais pais;
-
+	
 }
