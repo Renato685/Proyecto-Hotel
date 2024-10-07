@@ -6,14 +6,17 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import entity.Alumno;
+import com.mysql.cj.xdevapi.Client;
+
+import entity.Cliente;
 import lombok.extern.apachecommons.CommonsLog;
 import util.MySqlDBConexion;
+
 
 @CommonsLog
 public class ModelAlumno {
 
-	public int insertarAlumno(Alumno obj) {
+	public int insertarAlumno(Cliente obj) {
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		int salida = -1;
@@ -22,15 +25,11 @@ public class ModelAlumno {
 			conn = MySqlDBConexion.getConexion();
 			String sql = "insert into alumno values(null,?,?,?,?,?,?,?,?,?,?)";
 			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, obj.getNombres());
-			pstm.setString(2, obj.getApellidos());
+			pstm.setString(1, obj.getNombre());
+			pstm.setString(2, obj.getApellido());
 			pstm.setString(3, obj.getTelefono());
-			pstm.setString(4, obj.getDni());
-			pstm.setString(5, obj.getCorreo());
-			pstm.setDate(6, obj.getFechaNacimiento());
-			pstm.setDate(7, obj.getFechaRegistro());
-			pstm.setDate(8, obj.getFechaActualizacion());
-			pstm.setInt(9, obj.getEstado());
+			pstm.setString(4, obj.getDocumento_Identidad());
+			pstm.setString(5, obj.getCorreo_Electronico());
 			pstm.setInt(10, obj.getPais().getIdPais());
 
 			System.out.println("SQL => " + pstm);
@@ -51,7 +50,7 @@ public class ModelAlumno {
 		return salida;
 	}
 
-	public List<Alumno> listaXNombresIguales(String nombres, String apellidos) {
+	/*public List<Alumno> listaXNombresIguales(String nombres, String apellidos) {
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -229,7 +228,7 @@ public class ModelAlumno {
 		}
 		return salida;
 		
-	}
+	} */
 
 
 }

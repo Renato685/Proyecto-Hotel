@@ -28,12 +28,12 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="id_nombres" class="control-label">Nombres</label> <input
-                            class="form-control" type="text" id="id_nombres" name="Nombre"
+                            class="form-control" type="text" id="id_nombre" name="Nombre"
                             placeholder="Ingrese el Nombre" maxlength="30">
                     </div>
                     <div class="form-group">
                         <label for="id_apellidos" class="control-label">Apellidos</label> <input
-                            class="form-control" type="text" id="id_apellidos" name="Apellido"
+                            class="form-control" type="text" id="id_apellido" name="Apellido"
                             placeholder="Ingrese los apellidos" maxlength="30">
                     </div>
                     <div class="form-group">
@@ -43,12 +43,12 @@
                     </div>
                     <div class="form-group">
                         <label for="id_telefono" class="control-label">Direccion</label> <input
-                            class="form-control" type="text" id="id_telefono" name="Direccion"
+                            class="form-control" type="text" id="id_direccion" name="Direccion"
                             placeholder="Ingrese el tel&eacute;fono" maxlength="9">
                     </div>
                     <div class="form-group">
-                        <label for="id_pais" class="control-label">Tipo Habitacion</label>
-                        <select class="form-control" id="id_pais" name="ID_Tipo_Habitacion">
+                        <label for="id_tipo_habitacion" class="control-label">Tipo Habitacion</label>
+                        <select class="form-control" id="id_tipo_habitacion" name="ID_Tipo_Habitacion">
                             <option value="">[Seleccione]</option>
                         </select>
                     </div>
@@ -167,7 +167,7 @@
         if (validator.isValid()) {
             $.ajax({
                 type: "POST",
-                url: "registraAlumno",
+                url: "registraCliente",
                 data: $('#id_form').serialize(),
                 success: function(data){
                     mostrarMensaje(data.mensaje);
@@ -181,9 +181,9 @@
         }
     });
 
-    $.getJSON("cargaPais", {}, function(data) {
+    $.getJSON("cargaTipoHabitacion", {}, function(data) {
         $.each(data, function(index, item) {
-            $("#id_pais").append("<option value=" +  item.idPais +" >" + item.nombre + "</option>");
+            $("#id_tipo_habitacion").append("<option value=" +  item.ID_Tipo_Habitacion +" >" + item.Nombre_Tipo + "</option>");
         });
     });
 
